@@ -1,4 +1,4 @@
-
+from django.contrib.auth.views import LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -6,9 +6,8 @@ from django.urls import path, re_path, include
 from django.views.generic import TemplateView
 
 from carts.views import cart_home
-
-from .views import (about_page, contact_page, home_page, login_page,
-                    register_page)
+from accounts.views import login_page, register_page
+from .views import (about_page, contact_page, home_page)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,6 +15,7 @@ urlpatterns = [
     path('about/', about_page, name='about'),
     path('contact/', contact_page, name='contact'),
     path('login/', login_page, name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('cart/', include('carts.urls', namespace='cart')),
     path('register/', register_page, name='register'),
     path('bootstrap/', TemplateView.as_view(template_name='bootstrap/example.html')),
